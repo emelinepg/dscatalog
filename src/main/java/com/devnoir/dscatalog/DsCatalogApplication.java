@@ -1,4 +1,4 @@
-package com.devnoir.dscatalog.DSCatalog;
+package com.devnoir.dscatalog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
