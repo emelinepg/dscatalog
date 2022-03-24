@@ -20,14 +20,11 @@ import com.devnoir.dscatalog.services.CategoryService;
 public class CategoryResource {
 
 	@Autowired
-	private CategoryService categoryService;
+	private CategoryService service;
 	
 	@GetMapping
 	public ResponseEntity<List<CategoryDTO>> findAll() {
-		List<CategoryDTO> list = new ArrayList<>();
-		Category cat1 = new Category(1L, "books");
-		Category cat2 = new Category(2L, "computers");
-		list.addAll(Arrays.asList(new CategoryDTO(cat1), new CategoryDTO(cat2)));
+		List<CategoryDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
