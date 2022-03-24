@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devnoir.dscatalog.dto.CategoryDTO;
 import com.devnoir.dscatalog.entities.Category;
 import com.devnoir.dscatalog.repositories.CategoryRepository;
+import com.devnoir.dscatalog.services.exceptions.EntityNotFoundException;
 
 @Service
 public class CategoryService {
@@ -32,7 +33,13 @@ public class CategoryService {
 		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
 	}
 	
-	public Optional<Category> findById(Long id) {
-		return repository.findById(id);
+	@Transactional(readOnly = true) 
+	public CategoryDTO findById(Long id) {
+		Optional<Category> cat = repository.findById(id);
+		Category entity = cat.orElseThrow(() -> new EntityNotFoundException("Entity not found")); 
+		return new CategoryDTO(entity);
+		
+		// outra maneira de fazer (fiz e deu certo):
+		// return new CategoryDTO(cat.get().getId(), cat.get().getName());
 	}
 }

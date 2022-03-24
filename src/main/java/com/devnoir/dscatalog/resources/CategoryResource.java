@@ -1,7 +1,5 @@
 package com.devnoir.dscatalog.resources;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devnoir.dscatalog.dto.CategoryDTO;
-import com.devnoir.dscatalog.entities.Category;
 import com.devnoir.dscatalog.services.CategoryService;
 
 @RestController
@@ -28,4 +25,9 @@ public class CategoryResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
+		CategoryDTO dto = service.findById(id);
+		return ResponseEntity.ok().body(dto);
+	}
 }
