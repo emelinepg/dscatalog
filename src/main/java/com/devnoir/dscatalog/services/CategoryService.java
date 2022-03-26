@@ -42,4 +42,14 @@ public class CategoryService {
 		// outra maneira de fazer (fiz e deu certo):
 		// return new CategoryDTO(cat.get().getId(), cat.get().getName());
 	}
+	
+	@Transactional
+	public CategoryDTO insert(CategoryDTO catDTO) {
+		Category cat = new Category();
+		cat.setName(catDTO.getName());
+		cat = repository.save(cat);
+		return new CategoryDTO(cat);
+	}
+	
+	
 }
