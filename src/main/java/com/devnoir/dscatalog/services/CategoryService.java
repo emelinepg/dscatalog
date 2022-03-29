@@ -24,24 +24,10 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository repository;
 	
-	/*@Transactional(readOnly = true)
-	public List<CategoryDTO> findAll() {
-		List<Category> list = repository.findAll();
-		
-		//List<CategoryDTO> categories = new ArrayList<>();
-		//for (Category x : list) {
-		//	CategoryDTO dto = new CategoryDTO(x);
-		//	categories.add(dto);
-		//}
-		
-		// é possível fazer o mesmo com uma expressão lambda
-		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
-	}*/
-
 	@Transactional(readOnly = true)
 	public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
 		Page<Category> list = repository.findAll(pageRequest);
-		return list.map(x -> new CategoryDTO(x));
+		return list.map(cat -> new CategoryDTO(cat));
 	}
 	
 	@Transactional(readOnly = true) 
@@ -49,9 +35,6 @@ public class CategoryService {
 		Optional<Category> opt = repository.findById(id);
 		Category cat = opt.orElseThrow(() -> new ResourceNotFoundException("Entity not found")); 
 		return new CategoryDTO(cat);
-		
-		// outra maneira de fazer (fiz e deu certo):
-		// return new CategoryDTO(cat.get().getId(), cat.get().getName());
 	}
 	
 	@Transactional
