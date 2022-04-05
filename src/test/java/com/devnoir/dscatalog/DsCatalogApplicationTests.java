@@ -1,4 +1,4 @@
-package com.devnoir.dscatalog.DSCatalog;
+package com.devnoir.dscatalog;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
