@@ -52,6 +52,7 @@ public class ProductServiceTests {
 	private long dependentId;
 	private PageImpl<Product> page;
 	private Product product;
+	private ProductDTO productDTO;
 	private Category category;
 		
 	@BeforeEach
@@ -60,6 +61,7 @@ public class ProductServiceTests {
 		nonExistingId = 100L;
 		dependentId = 4L;
 		product = Factory.createProduct();
+		productDTO = Factory.createProductDTO();
 		category = Factory.createCategory();
 		page = new PageImpl<>(List.of(product));
 		
@@ -101,16 +103,15 @@ public class ProductServiceTests {
 	
 	@Test
 	public void updateShouldReturnProductDtoWhenIdExists() {
-		ProductDTO dto = new ProductDTO();
-		dto = service.update(Factory.createProductDTO(), existingId);
+		ProductDTO result = service.update(productDTO, existingId);
 		
-		Assertions.assertNotNull(dto);
+		Assertions.assertNotNull(result);
 		verify(repository).getById(existingId);
 	}
 	
 	@Test
 	public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
-		Assertions.assertThrows(ResourceNotFoundException.class, () -> service.update(Factory.createProductDTO(), nonExistingId));
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> service.update(productDTO, nonExistingId));
 		verify(repository).getById(nonExistingId);
 	}
 	
