@@ -48,7 +48,7 @@ public class RoleService {
 	@Transactional
 	public RoleDTO update(RoleDTO dto, Long id) {
 		try {
-			Role role = repository.getById(id);
+			Role role = repository.getReferenceById(id);
 			role.setAuthority(dto.getAuthority()); 
 			role = repository.save(role);
 			return new RoleDTO(role);

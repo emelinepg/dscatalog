@@ -4,11 +4,15 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +27,13 @@ import com.devnoir.dscatalog.repositories.RoleRepository;
 import com.devnoir.dscatalog.repositories.UserRepository;
 import com.devnoir.dscatalog.services.exceptions.DatabaseException;
 import com.devnoir.dscatalog.services.exceptions.ResourceNotFoundException;
+import com.sun.org.slf4j.internal.LoggerFactory;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
+	private static Logger logger = org.slf4j.LoggerFactory.getLogger(UserService.class);
+	
 	@Autowired
 	private UserRepository repository;
 	@Autowired
@@ -60,7 +67,7 @@ public class UserService {
 	@Transactional
 	public UserDTO update(UserUpdateDTO dto, Long id) {
 		try {
-			User user = repository.getById(id);
+			User user = repository.getReferenceById(id);
 			copyDtoToEntity(dto, user);
 			user = repository.save(user);
 			return new UserDTO(user);
@@ -86,8 +93,19 @@ public class UserService {
 				
 		user.getRoles().clear();
 		for(RoleDTO roleDto : dto.getRoles()) {
-			Role role = roleRepository.getById(roleDto.getId());
+			Role role = roleRepository.getReferenceById(roleDto.getId());
 			user.getRoles().add(role);
 		}
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = repository.findByEmail(username);
+		if (user == null) {
+			logger.error("User not found: " + username);
+			throw new UsernameNotFoundException("Email not found");
+		}
+		logger.info("User found: " + username);
+		return user;
 	}
 }

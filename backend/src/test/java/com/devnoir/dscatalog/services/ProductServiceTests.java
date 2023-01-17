@@ -69,10 +69,10 @@ public class ProductServiceTests {
 		when(repository.save(ArgumentMatchers.any())).thenReturn(product);
 		when(repository.findById(existingId)).thenReturn(Optional.of(product));
 		when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
-		when(repository.getById(existingId)).thenReturn(product);
-		when(repository.getById(nonExistingId)).thenThrow(EntityNotFoundException.class);
-		when(catRepository.getById(existingId)).thenReturn(category);
-		when(catRepository.getById(nonExistingId)).thenThrow(EntityNotFoundException.class);
+		when(repository.getReferenceById(existingId)).thenReturn(product);
+		when(repository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
+		when(catRepository.getReferenceById(existingId)).thenReturn(category);
+		when(catRepository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
 		doNothing().when(repository).deleteById(existingId);
 		doThrow(EmptyResultDataAccessException.class).when(repository).deleteById(nonExistingId);
 		doThrow(DataIntegrityViolationException.class).when(repository).deleteById(dependentId);
@@ -106,13 +106,13 @@ public class ProductServiceTests {
 		ProductDTO result = service.update(productDTO, existingId);
 		
 		Assertions.assertNotNull(result);
-		verify(repository).getById(existingId);
+		verify(repository).getReferenceById(existingId);
 	}
 	
 	@Test
 	public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
 		Assertions.assertThrows(ResourceNotFoundException.class, () -> service.update(productDTO, nonExistingId));
-		verify(repository).getById(nonExistingId);
+		verify(repository).getReferenceById(nonExistingId);
 	}
 	
 	@Test
