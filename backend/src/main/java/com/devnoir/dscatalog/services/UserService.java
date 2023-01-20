@@ -27,7 +27,6 @@ import com.devnoir.dscatalog.repositories.RoleRepository;
 import com.devnoir.dscatalog.repositories.UserRepository;
 import com.devnoir.dscatalog.services.exceptions.DatabaseException;
 import com.devnoir.dscatalog.services.exceptions.ResourceNotFoundException;
-import com.sun.org.slf4j.internal.LoggerFactory;
 
 @Service
 public class UserService implements UserDetailsService {
