@@ -10,11 +10,13 @@ const Home = () => {
       <div className="home-container">
         <div className="home-card">
           <div className="home-content-container" /* texto1, texto2, botao */>
-            <h1>Conheça o melhor catálogo de produtos</h1>
-            <p>
-              Ajudaremos você a encontrar os melhores produtos disponíveis no
-              mercado.
-            </p>
+            <div className="home-text-container">
+              <h1>Conheça o melhor catálogo de produtos</h1>
+              <p>
+                Ajudaremos você a encontrar os melhores produtos disponíveis no
+                mercado.
+              </p>
+            </div>
             <ButtonIcon />
           </div>
           <div className="home-image-container" /* imagem */>
