@@ -1,0 +1,25 @@
+.catalog-title h2 {
+    margin-bottom: 20px;
+    color: #263238;
+    font-size: 18px;
+    letter-spacing: -0.015em;
+}
+
+@media (min-width: 576px) {
+    .catalog-title h2 {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    .catalog-title h2 {
+        font-size: 22px;
+    }
+}
+
+@media (min-width: 992px) {
+    .catalog-title h2 {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+}
