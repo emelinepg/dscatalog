@@ -14,6 +14,7 @@ const Catalog = () => {
   const [page, setPage] = useState<SpringPage<Product>>();
 
   const [isLoading, setIsLoading] = useState(false);
+  
   useEffect(() => {
     const params: AxiosParams = {
       method: 'GET',
