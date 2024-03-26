@@ -1,11 +1,55 @@
 .auth-container {
-
+    display: flex;
+    justify-content: space-around;
+    background-color: #F2F2F2;
+    padding: 20px;
 }
 
 .auth-banner-container {
+    display: none;
+}
+
+.auth-form-container {
+    width: 100%;
+    max-width: 550px;
+}
+
+@media (min-width: 576px) {
 
 }
 
-.auth-card-container {
+@media (min-width: 992px) {
+    
+}
 
+@media (min-width: 1200px) {
+    .auth-container {
+        padding: 40px;
+    }
+    .auth-banner-container {
+        display: flex;
+        flex-direction: column;
+        width: 500px;
+        margin-top: 40px;
+    }
+
+    .auth-banner-container h1 {
+        font-size: 40px;
+        letter-spacing: -0.015em;
+        color: #263238;
+        margin-bottom: 20px;
+    }
+
+    .auth-banner-container p {
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: -0.015em;
+        color: #9E9E9E;
+        margin-bottom: 40px;
+        width: 480px;
+    }
+
+    .image-banner-container svg {
+        width: 100%;
+    }
 }
