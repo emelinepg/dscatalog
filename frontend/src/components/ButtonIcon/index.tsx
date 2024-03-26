@@ -8,11 +8,9 @@ type Props = {
 const ButtonIcon = ( { text } : Props ) => {
   return (
     <div className="btn-container">
-      <div>
-        <button className="btn btn-primary">
-          {text}
-        </button>
-      </div>
+      <button className="btn btn-primary">
+        <h6>{text}</h6>
+      </button>
       <div className="btn-icon-container">
         <ArrowIcon />
       </div>
