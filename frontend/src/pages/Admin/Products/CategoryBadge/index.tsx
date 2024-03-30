@@ -1,6 +1,12 @@
-const CategoryBadge = () => {
+import './styles.css'
+
+type Props = {
+    name: string;
+}
+
+const CategoryBadge = ({name} : Props) => {
     return (
-        <h4>Category Badge</h4>
+        <div className="category-badge-container">{name}</div>
     )
 }
 

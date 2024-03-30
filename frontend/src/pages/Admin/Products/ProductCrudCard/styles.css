@@ -31,8 +31,27 @@
 }
 
 .product-crud-categories-container {
-    padding: 0 20px;
     display: flex;
+    flex-wrap: wrap;
+}
+
+.product-crud-card-buttons-container {
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.product-crud-card-button {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    border-radius: 10px;
+    width: 110px;
+    height: 40px;
+}
+
+.product-crud-card-button-delete {
+    margin-right: 10px;
 }
 
 @media (min-width: 1200px) {
