@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 
 type ProductFilterData = {
   name: string;
-  category: Category;
+  category: Category | null;
 };
 
 const ProductFilter = () => {
@@ -24,24 +24,29 @@ const ProductFilter = () => {
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
     control,
   } = useForm<ProductFilterData>();
 
   const onSubmit = (formData: ProductFilterData) => {
     console.log('ENVIOU', formData);
-    /*     const data = {...formData, price: String(formData.price).replace(',','.')}
-
-    const config: AxiosRequestConfig = {
-      method: isEditing ? 'PUT' : 'POST',
-      url: isEditing ? `/products/${productId}` : '/products',
-      data,
-      withCredentials: true,
-    };
-
-    requestBackend(config).then(() => {
-      history.push('/admin/products');
-    }); */
   };
+
+  const handleFormClear = () => {
+    setValue('name', '');
+    setValue('category', null)
+  }
+
+  const handleChangeCategory = (value: Category) => {
+    setValue('category', value);
+
+    const obj = {
+        name: getValues('name'),
+        category: getValues('category')
+    }
+    console.log('ENVIOU', obj);
+  }
 
   return (
     <div className="base-card product-filter-container">
@@ -70,13 +75,14 @@ const ProductFilter = () => {
                   isClearable
                   placeholder="Categoria"
                   classNamePrefix="product-filter-select"
+                  onChange={value => handleChangeCategory(value as Category)}
                   getOptionLabel={(category: Category) => category.name}
                   getOptionValue={(category: Category) => String(category.id)}
                 />
               )}
             />
           </div>
-          <button className="btn btn-outline-secondary product-filter-button">LIMPAR <span className="filter-btn-product-filter">FILTRO</span></button>
+          <button onClick={handleFormClear} className="btn btn-outline-secondary product-filter-button">LIMPAR <span className="filter-btn-product-filter">FILTRO</span></button>
         </div>
       </form>
     </div>
