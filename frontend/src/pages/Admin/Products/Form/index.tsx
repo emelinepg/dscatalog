@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import './styles.css';
 import { Product } from 'types/product';
 import { requestBackend } from 'utils/requests';
@@ -13,7 +13,6 @@ type UrlParams = {
 };
 
 const Form = () => {
-
   const { productId } = useParams<UrlParams>();
 
   const isEditing = productId !== 'create';
@@ -27,13 +26,13 @@ const Form = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    control,
   } = useForm<Product>();
 
   useEffect(() => {
-    requestBackend({url: '/categories'})
-    .then(response => {
-        setSelectCategories(response.data.content)
-    })
+    requestBackend({ url: '/categories' }).then((response) => {
+      setSelectCategories(response.data.content);
+    });
   }, []);
 
   useEffect(() => {
@@ -99,13 +98,26 @@ const Form = () => {
             </div>
 
             <div className="product-crud-input">
-                <Select 
-                options={selectCategories} 
-                classNamePrefix="product-crud-form-select"
-                isMulti
-                getOptionLabel={(category: Category) => category.name}
-                getOptionValue={(category: Category) => String(category.id)}
-                />
+              <Controller
+                name="categories"
+                rules={{ required: true }}
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    options={selectCategories}
+                    classNamePrefix="product-crud-form-select"
+                    isMulti
+                    getOptionLabel={(category: Category) => category.name}
+                    getOptionValue={(category: Category) => String(category.id)}
+                  />
+                )}
+              />
+              {errors.categories && (
+                <div className="invalid-feedback d-block">
+                    Campo obrigatório
+                </div>
+              )}
             </div>
 
             <div className="product-crud-input">
