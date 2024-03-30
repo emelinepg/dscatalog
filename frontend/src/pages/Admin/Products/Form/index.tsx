@@ -1,18 +1,23 @@
 import { useForm } from 'react-hook-form';
 import './styles.css';
 import { Product } from 'types/product';
-import { getTokenData } from 'utils/auth';
 import { requestBackend } from 'utils/requests';
-import { saveAuthData } from 'utils/storage';
 import { AxiosRequestConfig } from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import Select from 'react-select';
 
 type UrlParams = {
   productId: string;
 };
 
 const Form = () => {
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
+
   const { productId } = useParams<UrlParams>();
 
   const isEditing = productId !== 'create';
@@ -87,6 +92,15 @@ const Form = () => {
                 {errors.name?.message}
               </div>
             </div>
+
+            <div className="product-crud-input">
+                <Select 
+                options={options} 
+                classNamePrefix="product-crud-form-select"
+                isMulti
+                />
+            </div>
+
             <div className="product-crud-input">
               <input
                 {...register('price', {

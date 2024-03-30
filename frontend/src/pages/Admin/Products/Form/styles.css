@@ -14,6 +14,22 @@
     margin-top: 30px;
 }
 
+.product-crud-form-select__control {
+    height: 50px;
+    border-radius: 10px !important;
+    font-size: 1em;
+    letter-spacing: -0.015em;
+    color: #263238;
+}
+
+.product-crud-form-select__placeholder {
+    color: #9e9e9e !important;
+}
+
+.product-crud-form-select__indicator-separator {
+    display: none;
+}
+
 .product-crud-form-buttons-container {
     margin-top: 30px;
     display: flex;
