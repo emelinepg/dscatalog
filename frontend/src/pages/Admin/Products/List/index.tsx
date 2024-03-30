@@ -1,12 +1,13 @@
 import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
 import './styles.css';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
 import { AxiosRequestConfig } from 'axios';
 import { requestBackend } from 'utils/requests';
 import Pagination from 'components/Pagination';
+import ProductFilter from 'components/ProductFilter';
 
 type ControlComponentsData = {
   activePage: number;
@@ -24,7 +25,7 @@ const List = () => {
     setControlComponentsData({activePage: pageNumber})
   }
 
-  useEffect(() => {
+  const getProducts = useCallback(() => {
     const config: AxiosRequestConfig = {
       method: 'GET',
       url: '/products',
@@ -39,6 +40,10 @@ const List = () => {
     });
   }, [controlComponentsData]);
 
+  useEffect(() => {
+    getProducts();
+  }, [getProducts]);
+
   return (
     <div>
       <div className="product-crud-bar-container">
@@ -47,14 +52,14 @@ const List = () => {
             ADICIONAR
           </button>
         </Link>
-        <div className="base-card product-filter-container">Search bar</div>
+        <ProductFilter />
       </div>
       <div className="row">
         {page?.content.map((product) => (
           <div className="col-sm-6 col-md-12" key={product.id}>
             <ProductCrudCard
               product={product}
-              onDelete={() => {}}
+              onDelete={getProducts}
             />
           </div>
         ))}
