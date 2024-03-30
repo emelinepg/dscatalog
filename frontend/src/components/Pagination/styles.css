@@ -5,17 +5,14 @@
 }
 
 .arrow-previous {
-    color: #E1E1E1;
     margin: 5px;
     transform: scaleX(-1);
-}
-
-.arrow-next.active {
     color: #407BFF;
 }
 
 .arrow-next {
     margin: 5px;
+    color: #407BFF;
 }
 
 .pagination-item {
@@ -32,6 +29,11 @@
     align-items: center;
 }
 
-.pagination-item.active {
+.pagination-link-active {
     background-color: #407BFF;
+    color: white;
+}
+
+.arrow-inactive {
+    color: #e1e1e1;
 }

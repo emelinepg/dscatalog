@@ -6,6 +6,7 @@ import { Product } from 'types/product';
 import { SpringPage } from 'types/vendor/spring';
 import { AxiosRequestConfig } from 'axios';
 import { requestBackend } from 'utils/requests';
+import Pagination from 'components/Pagination';
 
 const List = () => {
   const [page, setPage] = useState<SpringPage<Product>>();
@@ -29,7 +30,7 @@ const List = () => {
   };
 
   return (
-    <>
+    <div>
       <div className="product-crud-bar-container">
         <Link to="/admin/products/create">
           <button className="btn btn-primary text-white btn-crud-add">
@@ -45,7 +46,8 @@ const List = () => {
           </div>
         ))}
       </div>
-    </>
+      <Pagination />
+    </div>
   );
 };
 
