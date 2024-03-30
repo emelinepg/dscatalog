@@ -8,19 +8,28 @@ import { AxiosRequestConfig } from 'axios';
 import { requestBackend } from 'utils/requests';
 import Pagination from 'components/Pagination';
 
+type ControlComponentsData = {
+  activePage: number;
+}
+
 const List = () => {
+
+  const [controlComponentsData, setControlComponentsData] = useState<ControlComponentsData>({
+    activePage: 0
+  });
+
   const [page, setPage] = useState<SpringPage<Product>>();
 
-  useEffect(() => {
-    getProducts(0);
-  }, []);
+  const handlePageChange = (pageNumber: number) => {
+    setControlComponentsData({activePage: pageNumber})
+  }
 
-  const getProducts = (pageNumber: number) => {
+  useEffect(() => {
     const config: AxiosRequestConfig = {
       method: 'GET',
       url: '/products',
       params: {
-        page: pageNumber,
+        page: controlComponentsData.activePage,
         size: 6,
       },
     };
@@ -28,7 +37,7 @@ const List = () => {
     requestBackend(config).then((response) => {
       setPage(response.data);
     });
-  };
+  }, [controlComponentsData]);
 
   return (
     <div>
@@ -45,7 +54,7 @@ const List = () => {
           <div className="col-sm-6 col-md-12" key={product.id}>
             <ProductCrudCard
               product={product}
-              onDelete={() => getProducts(page.number)}
+              onDelete={() => {}}
             />
           </div>
         ))}
@@ -53,7 +62,7 @@ const List = () => {
       <Pagination
         pageCount={page ? page.totalPages : 0}
         range={3}
-        onChange={getProducts}
+        onChange={handlePageChange}
       />
     </div>
   );
