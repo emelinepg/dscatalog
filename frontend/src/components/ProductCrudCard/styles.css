@@ -1,0 +1,38 @@
+.product-card {
+    min-width: 250px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    border-bottom: 1px solid #E1E1E1;
+    display: flex;
+    justify-content: center;
+}
+
+.image-container img {
+    width: 140px;
+    height: 140px;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    text-align: left;
+}
+
+.info-container h4 {
+    font-size: 18px;
+    padding: 10px 0;
+    color: #263238;
+}
+
+@media (min-width: 1200px) {
+    .image-container img {
+        width: 158px;
+        height: 158px;
+    }
+}

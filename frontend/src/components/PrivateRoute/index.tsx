@@ -5,10 +5,10 @@ import { Role, isAuthenticated, hasAnyRoles } from 'utils/auth';
 type Props = {
   children: React.ReactNode;
   path: string;
-  roles?: Role[]
+  roles?: Role[];
 };
 
-const PrivateRoute = ({ children, path, roles = []}: Props) => {
+const PrivateRoute = ({ children, path, roles = [] }: Props) => {
   return (
     <Route
       path={path}
@@ -20,10 +20,10 @@ const PrivateRoute = ({ children, path, roles = []}: Props) => {
               state: { from: location },
             }}
           />
-        ) : hasAnyRoles(roles) ? (
+        ) : !hasAnyRoles(roles) ? (
           <Redirect to="/admin/products" />
         ) : (
-          { children }
+          <>{ children }</>
         )
       }
     />
