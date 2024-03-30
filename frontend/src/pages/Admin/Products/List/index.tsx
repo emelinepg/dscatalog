@@ -1,4 +1,4 @@
-import ProductCrudCard from 'components/ProductCrudCard';
+import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
 import './styles.css';
 import { Link } from 'react-router-dom';
 
@@ -34,9 +34,17 @@ const List = () => {
         </Link>
         <div className="base-card product-filter-container">Search bar</div>
       </div>
-      <ProductCrudCard product={product} />
-      <ProductCrudCard product={product} />
-      <ProductCrudCard product={product} />
+      <div className="row">
+        <div className="col-sm-6 col-md-12">
+          <ProductCrudCard product={product} />
+        </div>
+        <div className="col-sm-6 col-md-12">
+          <ProductCrudCard product={product} />
+        </div>
+        <div className="col-sm-6 col-md-12">
+          <ProductCrudCard product={product} />
+        </div>
+      </div>
     </>
   );
 };

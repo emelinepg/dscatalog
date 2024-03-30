@@ -16,7 +16,7 @@
 @media (min-width: 768px) {
     .product-crud-bar-container {
         display: flex;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
     }
 
     .btn-crud-add {
