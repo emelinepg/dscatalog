@@ -49,17 +49,10 @@ const Form = () => {
   }, [isEditing, productId, setValue]);
 
   const onSubmit = (formData: Product) => {
-    const data = {
-      ...formData,
-      imgUrl: isEditing
-        ? formData.imgUrl
-        : 'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/2-big.jpg',
-      categories: isEditing ? formData.categories : [{ id: 1, name: '' }],
-    };
     const config: AxiosRequestConfig = {
       method: isEditing ? 'PUT' : 'POST',
       url: isEditing ? `/products/${productId}` : '/products',
-      data,
+      data: formData,
       withCredentials: true,
     };
 
@@ -115,7 +108,7 @@ const Form = () => {
               />
               {errors.categories && (
                 <div className="invalid-feedback d-block">
-                    Campo obrigatório
+                  Campo obrigatório
                 </div>
               )}
             </div>
@@ -137,6 +130,28 @@ const Form = () => {
               </div>
             </div>
           </div>
+
+          <div className="product-crud-input">
+            <input
+              {...register('imgUrl', {
+                required: 'Campo obrigatório',
+                pattern: {
+                  value: /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/gm,
+                  message: 'Deve ser uma URL válida',
+                },
+              })}
+              type="text"
+              className={`form-control base-input ${
+                errors.name ? 'is-invalid' : ''
+              }`}
+              placeholder="URL da imagem do produto"
+              name="imgUrl"
+            />
+            <div className="invalid-feedback d-block">
+              {errors.imgUrl?.message}
+            </div>
+          </div>
+
           <div className="col-lg-6 product-crud-input">
             <textarea
               rows={10}
