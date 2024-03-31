@@ -81,7 +81,7 @@ const Form = () => {
       <div className="base-card product-crud-form-card">
         <h1 className="product-crud-form-card-title">DADOS DO PRODUTO</h1>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} data-testid="form">
         <div className="row">
           <div className="col-lg-6">
             <div className="product-crud-input">
