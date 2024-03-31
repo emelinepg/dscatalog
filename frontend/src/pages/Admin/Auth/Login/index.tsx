@@ -3,10 +3,10 @@ import ButtonIcon from 'components/ButtonIcon';
 import { useForm } from 'react-hook-form';
 import { useContext, useState } from 'react';
 import { AuthContext } from 'AuthContext';
-import { getTokenData } from 'utils/auth';
 import { requestBackendLogin } from 'utils/requests';
 import { saveAuthData } from 'utils/storage';
 import './styles.css';
+import { getTokenData } from 'utils/token';
 
 type CredentialsDTO = {
   username: string;
